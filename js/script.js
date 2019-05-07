@@ -3,6 +3,7 @@ $('#name').focus();
 
 //"Other" Job Role input field
 $('#other-title').hide();
+
 $('#title').change(function () {
   if ( $(this).val() == 'other' ) {
     $('#other-title').show();
@@ -12,8 +13,13 @@ $('#title').change(function () {
 });
 
 //Assign T-Shirt colors to theme
-const punsTshirt = $('#design option[value="js puns"]');
-const heartTshirt = $('#design option[value="heart js"]');
-
-
+$('#design').change(function () {
+    if ( $(this).val() == 'js puns') {
+        $('#color').find('.heart').toggle(false);
+        $('#color').find('.puns').toggle(true);
+    } else {
+        $('#color').find('.puns').toggle(false);
+        $('#color').find('.heart').toggle(true);
+    };
+});
 
