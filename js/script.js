@@ -37,3 +37,22 @@ $('.activities').change((event) => {
   console.log($inputText);
 });
 
+//payment section
+$('#payment option[value="select_method"]').prop('hidden', true);
+$('#payment').change( function() {
+  if ( $(this).val() == 'credit_card') {
+    $('#credit-card').show();
+    $('#paypal').hide();
+    $('#bitcoin').hide();
+  } else if ($(this).val() == 'paypal') {
+    $('#paypal').show();
+    $('#credit-card').hide();
+    $('#bitcoin').hide();
+  } else {
+    $('#bitcoin').show();
+    $('#paypal').hide();
+    $('#credit-card').hide();
+  };
+});
+
+
