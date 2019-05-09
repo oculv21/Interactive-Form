@@ -27,7 +27,7 @@ $('#design').change(function () {
     };
 });
 
-//activities section
+//add total cost calculator to activites section
 const $totalDiv = $('<div></div>');
 $('.activities').append($totalDiv);
 let $totalCost = 0;
@@ -41,9 +41,20 @@ $('.activities').change((event) => {
     $totalCost -= $cost;
   };
   $totalDiv.text('Total: $' + $totalCost);
+  //disables conflicting activities
+  if ( $('.activities input').eq(1).prop('checked')) {
+    $('.activities input').eq(3).prop('disabled', true);
+  } else if ( $('.activities input').eq(3).prop('checked')) {
+    $('.activities input').eq(1).prop('disabled', true);
+  };
+  if ( $('.activities input').eq(2).prop('checked')) {
+    $('.activities input').eq(4).prop('disabled', true); 
+  } else if ( $('.activities input').eq(4).prop('checked')) {
+    $('.activities input').eq(2).prop('disabled', true); 
+  };
 });
 
-//payment section
+//hides other payment options when one is selected
 $('#payment option[value="select_method"]').prop('hidden', true);
 $('#payment').change( function() {
   if ( $(this).val() == 'credit_card') {
