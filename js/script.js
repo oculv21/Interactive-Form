@@ -33,8 +33,11 @@ $('.activities').append($totalDiv);
 let $totalCost = 0;
 $('.activities').change((event) => {
   let $input = event.target;
-  let $inputText = $input.parent().text();
-  console.log($inputText);
+  let $cost = $($input).parent().text().slice(-3);
+  $cost = parseInt($cost);
+  $totalCost += $cost;
+  console.log($totalCost);
+  $totalDiv.text('Total: $' + $totalCost);
 });
 
 //payment section
@@ -55,4 +58,5 @@ $('#payment').change( function() {
   };
 });
 
+//form validation
 
