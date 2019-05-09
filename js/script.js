@@ -35,8 +35,11 @@ $('.activities').change((event) => {
   let $input = event.target;
   let $cost = $($input).parent().text().slice(-3);
   $cost = parseInt($cost);
-  $totalCost += $cost;
-  console.log($totalCost);
+  if ( $(event.target).prop('checked') ) {
+    $totalCost += $cost;
+  } else {
+    $totalCost -= $cost;
+  };
   $totalDiv.text('Total: $' + $totalCost);
 });
 
