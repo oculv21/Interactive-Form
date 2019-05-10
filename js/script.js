@@ -1,5 +1,12 @@
+const name = $('#name');
+const email = $('#mail');
+const activities = $('.activities input');
+const creditCard = $('#cc-num');
+const zipcode = $('#zip');
+const cvv = $('#cvv');
+
 //first input field in focus
-$('#name').focus();
+$(name).focus();
 
 //"Other" Job Role input field functionality
 $('#other-input').hide();
@@ -74,3 +81,42 @@ $('#payment').change( function() {
 
 //form validation
 
+function isNameValid (name) {
+  return /^[A-Za-z]+$/.test($(name));
+};
+
+function isEmailValid (email) {
+  return /^[^@]+@\w+\.[a-z]+$/i.test($(email));
+};
+
+function activitiesSelected (activites) {
+  $(activites).each( function (index, input) {
+    if (input.prop('checked')) {
+      return true;
+    };
+  });
+};
+
+function creditCardValid (creditCard) {
+  return /\d{13,16}/.test($(creditCard));
+};
+
+function zipcodeValid (zipcode) {
+  return /\d{5}/.test($(zipcode));
+};
+
+function cvvValid (cvv) {
+  return /\d{3}/.test($(cvv));
+};
+
+$('form').submit( function (event) {
+  event.preventDefault();
+  isNameValid();
+  isEmailValid();
+  activitiesSelected();
+  if ($('#payment option[value="credit_card"]').prop('selected')) {
+    creditCardValid();
+    zipcodeValid();
+    cvvValid();
+  };
+});
