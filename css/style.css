@@ -114,6 +114,16 @@ button:hover {
 	background: #184c62;
 }
 
+form span {
+	border: 1px solid red;
+	color: red;
+	background: #fff;
+	font-size: 1em;
+	float: right;
+	padding: .3em;
+	margin-bottom: .25em;
+  }
+
 /* ================================= 
   Page Styles
 ==================================== */

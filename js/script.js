@@ -80,43 +80,23 @@ $('#payment').change( function() {
 });
 
 //form validation
+const $nameError = $('<span>Name field must not be blank.</span>');
+$(name).prev().append($nameError);
+$($nameError).hide();
 
-function isNameValid (name) {
-  return /^[A-Za-z]+$/.test($(name));
-};
-
-function isEmailValid (email) {
-  return /^[^@]+@\w+\.[a-z]+$/i.test($(email));
-};
-
-function activitiesSelected (activites) {
-  $(activites).each( function (index, input) {
-    if (input.prop('checked')) {
-      return true;
-    };
-  });
-};
-
-function creditCardValid (creditCard) {
-  return /\d{13,16}/.test($(creditCard));
-};
-
-function zipcodeValid (zipcode) {
-  return /\d{5}/.test($(zipcode));
-};
-
-function cvvValid (cvv) {
-  return /\d{3}/.test($(cvv));
+function isNameValid () {
+  if  ($(name).val() !== '') {
+    $(name).css('borderColor', '#c1deeb');
+    $($nameError).hide();
+    return true;
+  } else {
+    $(name).css('borderColor', 'red');
+    $($nameError).show();
+    return false;
+  };
 };
 
 $('form').submit( function (event) {
   event.preventDefault();
   isNameValid();
-  isEmailValid();
-  activitiesSelected();
-  if ($('#payment option[value="credit_card"]').prop('selected')) {
-    creditCardValid();
-    zipcodeValid();
-    cvvValid();
-  };
 });
