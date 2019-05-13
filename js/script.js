@@ -4,6 +4,8 @@ const activities = $('.activities input');
 const creditCard = $('#cc-num');
 const zipcode = $('#zip');
 const cvv = $('#cvv');
+const $nameError = $('<span>Name field must not be blank.</span>');
+const $emailError = $('<span>Must contain valid email address.</span>');
 
 //first input field in focus
 $(name).focus();
@@ -80,9 +82,10 @@ $('#payment').change( function() {
 });
 
 //form validation
-const $nameError = $('<span>Name field must not be blank.</span>');
 $(name).prev().append($nameError);
 $($nameError).hide();
+$(email).prev().append($emailError);
+$($emailError).hide();
 
 function isNameValid () {
   if  ($(name).val() !== '') {
@@ -96,7 +99,20 @@ function isNameValid () {
   };
 };
 
+function isEmailValid () {
+  if (/^[^@]+@\w+\.[a-z]+$/i.test($(email)) || $(email).val() !== '') {
+    $(email).css('borderColor', '#c1deeb');
+    $($emailError).hide();
+    return true;
+  } else {
+    $(email).css('borderColor', 'red');
+    $($emailError).show();
+    return false;
+  };
+};
+
 $('form').submit( function (event) {
   event.preventDefault();
   isNameValid();
+  isEmailValid();
 });
