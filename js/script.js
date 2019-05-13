@@ -7,6 +7,9 @@ const cvv = $('#cvv');
 const $nameError = $('<span>Name field must not be blank.</span>');
 const $emailError = $('<span>Must contain valid email address.</span>');
 const $activitiesError = $('<span>Please select at least one activity.</span>');
+const $creditCardError = $('<span>Please provide a valid credit card number.</span>');
+const $zipcodeError = $('<span>Please provide a valid zipcode.</span>');
+const $cvvError = $('<span>Please provide a valid CVV.</span>');
 
 //first input field in focus
 $(name).focus();
@@ -82,14 +85,21 @@ $('#payment').change( function() {
   };
 });
 
-//form validation
+//append and hide error messages
 $(name).prev().append($nameError);
 $($nameError).hide();
 $(email).prev().append($emailError);
 $($emailError).hide();
 $('.activities legend').append($activitiesError);
 $($activitiesError).hide();
+$(creditCard).prev().append($creditCardError);
+$($creditCardError).hide();
+$(zipcode).prev().append($zipcodeError);
+$($zipcodeError).hide();
+$(cvv).prev().append($cvvError);
+$($cvvError).hide();
 
+//form validation functions
 function isNameValid () {
   if  ($(name).val() !== '') {
     $(name).css('borderColor', '#c1deeb');
@@ -103,7 +113,7 @@ function isNameValid () {
 };
 
 function isEmailValid () {
-  if (/^[^@]+@\w+\.[a-z]+$/i.test($(email)) || $(email).val() !== '') {
+  if (/^[^@]+@\w+\.[a-z]+$/i.test($(email).val()) || $(email).val() !== '') {
     $(email).css('borderColor', '#c1deeb');
     $($emailError).hide();
     return true;
@@ -130,9 +140,46 @@ function activitiesSelected () {
   };
 };
 
+function creditCardValid () {
+  if (/^\d{13,16}$/.test($(creditCard).val())) {
+    $($creditCardError).hide();
+    return true;
+  } else {
+    $($creditCardError).show();
+    return false;
+  };
+};
+
+function zipcodeValid () {
+  if (/^\d{5}$/.test($(zipcode).val())) {
+    $($zipcodeError).hide();
+    return true;
+  } else {
+    $($zipcodeError).show();
+    return false;
+  };
+};
+
+function cvvValid () {
+  if (/^\d{3}$/.test($(cvv).val())) {
+    $($cvvError).hide();
+    return true;
+  } else {
+    $($cvvError).show();
+    return false;
+  };
+};
+
 $('form').submit( function (event) {
   event.preventDefault();
-  isNameValid();
-  isEmailValid();
-  activitiesSelected();
+  let results = [];
+  results.push(isNameValid());
+  results.push(isEmailValid());
+  results.push(activitiesSelected());
+  if ($('#payment option[value="credit_card"]').prop('selected')) {
+    results.push(creditCardValid());
+    results.push(zipcodeValid());
+    results.push(cvvValid());
+  };
+  console.log(results);
 });
