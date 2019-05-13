@@ -26,7 +26,9 @@ $('#title').change(function () {
 
 //Assign T-Shirt colors to theme
 $('#design option[value="theme"]').prop('hidden', true)
+$('#colors-js-puns').hide();
 $('#design').change(function () {
+  $('#colors-js-puns').show();
     if ( $(this).val() == 'js puns') {
         $('#color').find('.heart').hide();
         $('#color').find('.puns').show();
@@ -170,8 +172,7 @@ function cvvValid () {
   };
 };
 
-$('form').submit( function (event) {
-  event.preventDefault();
+function formValidation () {
   let results = [];
   results.push(isNameValid());
   results.push(isEmailValid());
@@ -181,5 +182,15 @@ $('form').submit( function (event) {
     results.push(zipcodeValid());
     results.push(cvvValid());
   };
-  console.log(results);
+  $.each(results, function () {
+    if ($(this) == false) {
+    return false;
+  } else {
+    return true}
+  });
+};
+
+$('form').submit( function (event) {
+  event.preventDefault();
+  formValidation();
 });
