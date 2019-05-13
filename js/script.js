@@ -6,6 +6,7 @@ const zipcode = $('#zip');
 const cvv = $('#cvv');
 const $nameError = $('<span>Name field must not be blank.</span>');
 const $emailError = $('<span>Must contain valid email address.</span>');
+const $activitiesError = $('<span>Please select at least one activity.</span>');
 
 //first input field in focus
 $(name).focus();
@@ -86,6 +87,8 @@ $(name).prev().append($nameError);
 $($nameError).hide();
 $(email).prev().append($emailError);
 $($emailError).hide();
+$('.activities legend').append($activitiesError);
+$($activitiesError).hide();
 
 function isNameValid () {
   if  ($(name).val() !== '') {
@@ -111,8 +114,25 @@ function isEmailValid () {
   };
 };
 
+function activitiesSelected () {
+  let checked = 0;
+  $(activities).each( function () {
+    if ($(this).prop('checked')) {
+      checked += 1;
+    };
+  });
+  if (checked > 0) {
+    $($activitiesError).hide();
+    return true;
+  } else {
+    $($activitiesError).show();
+    return false;
+  };
+};
+
 $('form').submit( function (event) {
   event.preventDefault();
   isNameValid();
   isEmailValid();
+  activitiesSelected();
 });
