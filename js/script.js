@@ -71,6 +71,9 @@ $('.activities').change((event) => {
 
 //hides other payment options when one is selected
 $('#payment option[value="select_method"]').prop('hidden', true);
+$('#payment option[value="credit_card"]').prop('selected', true);
+$('#paypal').hide();
+$('#bitcoin').hide();
 $('#payment').change( function() {
   if ( $(this).val() == 'credit_card') {
     $('#credit-card').show();
@@ -191,6 +194,9 @@ function formValidation () {
 };
 
 $('form').submit( function (event) {
-  event.preventDefault();
-  formValidation();
+  if (formValidation()) {
+    return;
+  } else {
+    event.preventDefault();
+  };
 });
