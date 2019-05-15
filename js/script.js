@@ -185,18 +185,18 @@ function formValidation () {
     results.push(zipcodeValid());
     results.push(cvvValid());
   };
+  let flag = true;
   $.each(results, function () {
-    if ($(this) == false) {
-    return false;
-  } else {
-    return true}
+    if (this == false) {
+      flag = false;
+      return false;
+    } 
   });
+  return flag;
 };
 
 $('form').submit( function (event) {
-  if (formValidation()) {
-    return;
-  } else {
+  if (!formValidation()) {
     event.preventDefault();
-  };
+  }
 });
