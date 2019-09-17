@@ -199,6 +199,6 @@ $('form').submit( function (event) {
   if (!formValidation()) {
     event.preventDefault();
   } else {
-    location.reload(true)
+    window.location.reload(true)
   }
 });
